@@ -1,6 +1,7 @@
-# Jhosep Web
-
-This template should help get you started developing with Vue 3 in Vite.
+# Preguntita
+ 
+Pagina que hice para un "detalle" amistoso
+###
 
 ## Recommended IDE Setup
 
