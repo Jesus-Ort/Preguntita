@@ -1,16 +1,40 @@
 <template>
-    <div class="text-white flex flex-col items-center space-y-4 p-4 bg-gradient-to-br from-lime-700 via-lime-600 to-yellow-300 min-h-screen justify-center items-center">
-        <h2 class="text-2xl font-bold">¿Quién es la persona más increíble, inteligente, amable, sorprendente y especial que conoces?</h2>
-        <label for="respuesta" class="text-lg">Tu respuesta:</label>
-        <input class="border border-white-800 outline-none p-2 rounded" id="respuesta" v-model="respuesta" type="text" @keyup.enter="cambiarMensaje" />
-        <button class="bg-green-900 cursor-pointer hover:bg-green-700 hover:scale-120 transition duration-300 text-white p-2 rounded" @click="cambiarMensaje">Enviar</button>
-        <p v-if="respuesta === 'yisus' || respuesta === 'Yisus'" class="text-lg">Correcto!</p>
-        <p v-else class="text-lg">{{ mensaje[mensajeIndex] }}</p>
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-t from-blue-900 to-slate-900 px-2 sm:px-8 py-4">
+    <div class="w-full max-w-md p-4 sm:p-8">
+      <h2 class="text-xl sm:text-2xl font-bold text-white text-center mb-4">¿Quién es la persona más increíble, inteligente, amable, sorprendente y especial que conoces?</h2>
+      <label for="respuesta" class="text-base sm:text-lg text-white mb-2 block">Tu respuesta:</label>
+      <input
+        class="w-full border border-white-800 outline-none p-2 sm:p-3 rounded text-white mb-4 transition-all duration-200"
+        id="respuesta"
+        v-model="respuesta"
+        type="text"
+        @keyup.enter="cambiarMensaje"
+      />
+      <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center mb-4">
+        <button
+          v-if="respuesta !== 'jhosep' && respuesta !== 'Jhosep'"
+          class="bg-sky-800 cursor-pointer hover:bg-sky-900 hover:scale-110 transition duration-300 text-white p-2 sm:p-3 rounded w-full sm:w-auto"
+          @click="cambiarMensaje"
+        >Enviar...</button>
+        <button
+          v-if="respuesta === 'jhosep' || respuesta === 'Jhosep'"
+          class="bg-sky-800 cursor-pointer hover:bg-sky-900 hover:scale-140 transition duration-300 text-white p-2 sm:p-3 rounded w-full sm:w-auto"
+          @click="felicitarMensaje"
+        >Aceptalo 😉</button>
+      </div>
+      <p v-if="respuesta !== 'jhosep' && respuesta !== 'Jhosep'" class="text-base sm:text-lg text-white text-center mb-2">{{ mensaje[mensajeIndex] }}</p>
+      <p v-show="mostrarFelicitaciones" class="text-base sm:text-lg text-white text-center mb-2">{{ mensajeFelicitaciones }}</p>
+      <reproductor-componente ref="reproductor" v-show="mostrarReproductor" />
     </div>
+  </div>
 </template>
 
 <script setup>
     import { ref } from 'vue'
+    import reproductorComponente from './reproductorComponente.vue';
+    const reproductor = ref(null)
+    const mostrarReproductor = ref(false)
+    const mostrarFelicitaciones = ref(false)
     const respuesta = ref('')
     const mensajeIndex = ref('')
     const mensaje = [
@@ -39,11 +63,38 @@
     'Esa respuesta tiene tanto sentido como un pulpo en un monopatín. 🐙🛹',
     '¡Incorrecto! 🔔 Pero suena bien para una campana de error. 🔕',
     'Ni frío ni caliente... ¡estás congelado! ❄️❌',
-    
-];
+    ];
+    const mensajeFelicitaciones = "Muy buenas noches, señorita. ¡Feliz cumpleaños! Espero que lo pases tan especial como lo eres tú (sí, te robé la frase). Sabes siempre he pensado que nací en el tiempo equivocado, pero desde que te conocí, pensé que no solo nací en el momento correcto, sino que no querría haber nacido en ningún otro instante que no me llevara a conocer a una persona tan random, loca, divertida, ingeniosa, inteligente y única como tú. Cuando me felicitaste tú, dijiste que nos conocemos hace poco, pero ahora nos conocemos hace un año y puedo asegurar que tampoco necesitaba tanto para decir que no solo como tu amistad, sino como tú muy, muy, pocos, como diría Reik, como aguja en un pajar JAJAJA. Me alegro mucho de haberte conocido Helen, me has ayudado más de lo que eres conciente y no quiero ni imaginar cómo sería si no te hubiera conocido porque sé que me hubiera vuelto loco acá y te deseo un muy feliz cumpleaños y que estés muy bien y feliz no solo hoy sino siempre, porque te lo mereces, eres una gran persona y te mereces lo mejor. Y Quiero que recuerdes esto siempre, incluso si ya no hablamos y no te lo pueda recordar, siempre recuerda que eres tan valiosa que... Feliz cumpleaños ✨🤍"
+
     function cambiarMensaje() {
-        if (respuesta.value !== 'yisus' || respuesta.value !== 'Yisus') {
+        if (respuesta.value !== 'jhosep' || respuesta.value !== 'Jhosep') {
             mensajeIndex.value = Math.floor(Math.random() * mensaje.length)
         }
     }
+
+    function felicitarMensaje(){
+      if (reproductor.value && reproductor.value.togglePlay) {
+          reproductor.value.togglePlay()
+      }
+      mostrarReproductor.value = true
+      mostrarFelicitaciones.value = true
+    }
+
 </script>
+
+<style scoped>
+/* Mejoras para input y botones en pantallas pequeñas */
+@media (max-width: 640px) {
+  input {
+    font-size: 15px;
+    padding: 8px;
+  }
+  button {
+    font-size: 15px;
+    padding: 8px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+}
+</style>
