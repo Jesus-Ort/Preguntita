@@ -39,6 +39,7 @@
     'Esa respuesta tiene tanto sentido como un pulpo en un monopatín. 🐙🛹',
     '¡Incorrecto! 🔔 Pero suena bien para una campana de error. 🔕',
     'Ni frío ni caliente... ¡estás congelado! ❄️❌',
+    
 ];
     function cambiarMensaje() {
         if (respuesta.value !== 'yisus' || respuesta.value !== 'Yisus') {
