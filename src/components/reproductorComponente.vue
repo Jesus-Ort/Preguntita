@@ -4,33 +4,33 @@
     <button @click="togglePlay" class="micro-btn" :class="{ playing: isPlaying }" title="Play/Pause">
       {{ isPlaying ? '⏸' : '▶' }}
     </button>
-    
+
     <!-- Barra de progreso -->
     <div class="micro-progress">
       <div class="micro-progress-fill" :style="{ width: progressPercentage + '%' }"></div>
     </div>
-    
+
     <!-- Tiempo actual -->
     <span class="micro-time">{{ formatTime(currentTime) }}</span>
-    
+
     <!-- Control de volumen con hover -->
     <div class="volume-container">
       <button class="micro-btn volume-btn" @click="toggleMute" :class="{ muted: isMuted }" title="Silenciar">
         {{ volumeIcon }}
       </button>
       <div class="volume-slider-wrapper">
-        <input 
-          type="range" 
-          min="0" 
-          max="1" 
-          step="0.01" 
-          :value="volume" 
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          :value="volume"
           @input="ajustarVolumen($event.target.value)"
           class="volume-slider"
         />
       </div>
     </div>
-    
+
     <!-- Botón de stop -->
     <button @click="stop" class="micro-btn stop" title="Detener">
       ⏹
@@ -76,15 +76,15 @@ export default {
       this.audio.addEventListener('loadedmetadata', () => {
         this.duration = this.audio.duration;
       });
-      
+
       this.audio.addEventListener('timeupdate', () => {
         this.currentTime = this.audio.currentTime;
       });
-      
+
       this.audio.addEventListener('play', () => {
         this.isPlaying = true;
       });
-      
+
       this.audio.addEventListener('pause', () => {
         this.isPlaying = false;
       });
@@ -113,7 +113,7 @@ export default {
       const newVolume = parseFloat(nivel);
       this.volume = newVolume;
       this.audio.volume = newVolume;
-      
+
       // Si ajustamos el volumen, quitamos el mute
       if (this.isMuted && newVolume > 0) {
         this.isMuted = false;
@@ -152,7 +152,7 @@ export default {
   left: 0;
   right: 0;
   height: 30px;
-  background: #2c5032;
+  background: #020d24;
   display: flex;
   align-items: center;
   padding: 0 10px;
@@ -274,20 +274,20 @@ export default {
     padding: 0 8px;
     gap: 6px;
   }
-  
+
   .micro-time {
     min-width: 30px;
     font-size: 9px;
   }
-  
+
   .micro-progress {
     min-width: 40px;
   }
-  
+
   .volume-container:hover .volume-slider-wrapper {
     width: 40px;
   }
-  
+
   .volume-slider {
     width: 40px;
   }
